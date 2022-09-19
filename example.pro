@@ -46,18 +46,18 @@ married("Алексей Михайлович", "Наталья Кириловн�
 married("Пётр I Алексеевич", "Евдокия Фёдоровна Лопухина").
 married("Пётр I Алексеевич", "Екатерина I Алексеевна").
 married("Пётр III Фёдорович", "Екатерина II Алексеевна").
-married(X, Y) :- married(Y, X).
+check_married(X, Y):- married(X, Y); married(Y, X).
 
-husband(X, Y) :- male(X), married(X, Y).
-wife(X, Y) :- female(X), married(X, Y).
+husband(X, Y) :- male(X), check_married(X, Y).
+wife(X, Y) :- female(X), check_married(X, Y).
 
 grandparent(C, D) :- parent(C, E), parent(E, D).
-grandpa(C, D) :- male(С), parent(C, E), parent(E, D).
-grandma(C, D) :- female(С), parent(C, E), parent(E, D).
+grandpa(C, D) :- male(C), parent(C, E), parent(E, D).
+grandma(C, D) :- female(C), parent(C, E), parent(E, D).
 
 son(X, Y) :- male(X), parent(Y, X).
 dauther(X, Y) :- female(X), parent(Y, X).
 
-sibling(X, Y) :- parent(Z, Y), parent(Z, X), X /= Y.
-sister(X,Y):- female(X), parent(Z,X), parent(Z,Y), X /=Y.
-brother(X,Y):- male(X), parent(Z,X), parent(Z,Y), X /=Y.
+sibling(X, Y) :- parent(Z, Y), parent(Z, X), X \= Y.
+sister(X,Y):- female(X), parent(Z,X), parent(Z,Y), X \=Y.
+brother(X,Y):- male(X), parent(Z,X), parent(Z,Y), X \=Y.
